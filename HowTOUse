@@ -1,0 +1,21 @@
+安装：
+pip install buildbot
+pip install buildbot-slave
+
+
+启动master:
+buildbot create-master master
+mv master/master.cfg.sample master/master.cfg
+buildbot start master
+tail -f master/twistd.log
+
+启动slave：
+buildslave create-slave BASEDIR MASTERHOST:PORT SLAVENAME PASSWORD
+buildslave create-slave slave localhost:9989 example-slave pass
+buildslave start slave
+Check the slave's log:tail -f slave/twistd.log
+
+检查配置文件：
+buildbot checkconfig master.cfg
+更改master.cfg后，重新load：
+buildbot reconfig BASEDIR
